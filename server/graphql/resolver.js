@@ -52,6 +52,7 @@ const resolvers = {
       return employeeData;
     },
     updateEmployee: async (_root, args) => {
+      
       const { id, ...updateData } = args;
 
       // Use Moment.js to parse the updated DateOfJoining string if it's provided

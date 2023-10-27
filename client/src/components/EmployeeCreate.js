@@ -14,6 +14,7 @@ const EmployeeCreate = () => {
 
   const handleChange = (e) => {
     let { name, value } = e.target;
+    
 
     if (name === "age") {
       let valuek = parseInt(value);
@@ -58,7 +59,9 @@ const EmployeeCreate = () => {
   DateOfJoining
   
   }
-}`
+}`      
+console.log("🚀 ~ file: EmployeeCreate.js:69 ~ handleSubmit ~ employee:", employee)
+
 
 fetch("http://localhost:4000/graphql", {
   method: 'POST',
@@ -133,6 +136,7 @@ fetch("http://localhost:4000/graphql", {
         <div>
           <label>EmployeeType:</label>
           <select
+          type="text"
             name="employeeType"
             value={employee.employeeType}
             onChange={handleChange}
