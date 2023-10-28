@@ -14,7 +14,7 @@ const EmployeeCreate = () => {
 
   const handleChange = (e) => {
     let { name, value } = e.target;
-    
+   
 
     if (name === "age") {
       let valuek = parseInt(value);
@@ -23,12 +23,15 @@ const EmployeeCreate = () => {
         [name]: valuek
       });
     } else {
+     
       setEmployee({
         ...employee,
         [name]: value
       });
     }
+    console.log("Employee",employee);
   }
+
 
   const handleSubmit = (e) =>{
  e.preventDefault();
@@ -60,7 +63,6 @@ const EmployeeCreate = () => {
   
   }
 }`      
-console.log("🚀 ~ file: EmployeeCreate.js:69 ~ handleSubmit ~ employee:", employee)
 
 
 fetch("http://localhost:4000/graphql", {
