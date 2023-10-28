@@ -1,23 +1,15 @@
-
-import EmployeeShow from './components/EmployeeShow';
-import { useState } from 'react';
-import { Context } from './context/context';
-import EmployeeCreate from './components/EmployeeCreate';
+import EmployeeShow from "./components/EmployeeShow";
+import { useState } from "react";
+import { Context } from "./context/context";
+import EmployeeCreate from "./components/EmployeeCreate";
 
 function App() {
-  
-  const [employees,setEmployees] = useState([]);
+  const [employees, setEmployees] = useState([]);
   return (
-   
-  
     <div>
-     <EmployeeShow></EmployeeShow>
-     <EmployeeCreate></EmployeeCreate>
+      <EmployeeShow></EmployeeShow>
+      <EmployeeCreate></EmployeeCreate>
     </div>
-    
-  
-   
-
   );
 }
 

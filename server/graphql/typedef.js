@@ -1,4 +1,4 @@
-const { gql } = require('apollo-server');
+const { gql } = require("apollo-server");
 
 const typeDefs = gql`
   type Employee {
@@ -13,13 +13,10 @@ const typeDefs = gql`
   }
 
   type Query {
-    getEmployees(
-      limitValue: Int! 
-      offset: Int!
-      ): [Employee]!
+    getEmployees(limitValue: Int!, offset: Int!): [Employee]!
     getEmployee(id: ID!): Employee
-    searchEmployees(name: String!):[Employee]!
-    filterEmployees(type: String!):[Employee]!
+    searchEmployees(name: String!): [Employee]!
+    filterEmployees(type: String!): [Employee]!
   }
 
   type Mutation {
@@ -34,18 +31,18 @@ const typeDefs = gql`
     ): Employee
 
     updateEmployee(
-        id: ID!
-        FirstName: String
-        LastName: String
-        Age: Int
-        DateOfJoining: String
-        Title: String
-        Department: String
-        EmployeeType: String
-      ): Employee
+      id: ID!
+      FirstName: String
+      LastName: String
+      Age: Int
+      DateOfJoining: String
+      Title: String
+      Department: String
+      EmployeeType: String
+    ): Employee
 
-      deleteEmployee(id: ID!): String
+    deleteEmployee(id: ID!): String
   }
 `;
 
-module.exports =typeDefs;
+module.exports = typeDefs;

@@ -1,41 +1,38 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const EmployeeCreate = () => {
   const [employee, setEmployee] = useState({
-    firstName: '',
-    lastName: '',
+    firstName: "",
+    lastName: "",
     age: 0,
-    dateOfJoining: '',
-    title: '',
-    department: '',
-    employeeType: '',
-    currentStatus: '',
+    dateOfJoining: "",
+    title: "",
+    department: "",
+    employeeType: "",
+    currentStatus: "",
   });
 
   const handleChange = (e) => {
     let { name, value } = e.target;
-   
 
     if (name === "age") {
       let valuek = parseInt(value);
       setEmployee({
         ...employee,
-        [name]: valuek
+        [name]: valuek,
       });
     } else {
-     
       setEmployee({
         ...employee,
-        [name]: value
+        [name]: value,
       });
     }
-    console.log("Employee",employee);
-  }
+    console.log("Employee", employee);
+  };
 
-
-  const handleSubmit = (e) =>{
- e.preventDefault();
- let query = `mutation addEmployee(
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let query = `mutation addEmployee(
   $firstName: String!, 
   $lastName: String!, 
   $title: String!, 
@@ -62,21 +59,21 @@ const EmployeeCreate = () => {
   DateOfJoining
   
   }
-}`      
+}`;
 
-
-fetch("http://localhost:4000/graphql", {
-  method: 'POST',
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-      query: query,
-      variables: employee
-  })
-}).then(res => res.json()).then(function(res) {
-  
-  console.log("data,submitted",res)})
-
-  }
+    fetch("http://localhost:4000/graphql", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query: query,
+        variables: employee,
+      }),
+    })
+      .then((res) => res.json())
+      .then(function (res) {
+        console.log("data,submitted", res);
+      });
+  };
 
   return (
     <div>
@@ -138,7 +135,7 @@ fetch("http://localhost:4000/graphql", {
         <div>
           <label>EmployeeType:</label>
           <select
-          type="text"
+            type="text"
             name="employeeType"
             value={employee.employeeType}
             onChange={handleChange}
@@ -161,6 +158,6 @@ fetch("http://localhost:4000/graphql", {
       </form>
     </div>
   );
-}
+};
 
 export default EmployeeCreate;

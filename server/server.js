@@ -1,14 +1,10 @@
+const { ApolloServer } = require("apollo-server");
 
-const { ApolloServer } = require('apollo-server');
+const mongoose = require("mongoose");
+require("dotenv").config();
 
-const mongoose = require('mongoose');
-require('dotenv').config();
-
-const typeDefs = require('./graphql/typedef.js');
-const resolvers = require('./graphql/resolver.js');
-
-
-
+const typeDefs = require("./graphql/typedef.js");
+const resolvers = require("./graphql/resolver.js");
 
 //     _id: ID!
 //     FirstName: String!
@@ -50,10 +46,7 @@ const resolvers = require('./graphql/resolver.js');
 // `;
 mongoose.connect(process.env.CONNECTION_STRING);
 
-
-
-
-const server = new ApolloServer({typeDefs, resolvers})
+const server = new ApolloServer({ typeDefs, resolvers });
 
 server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);

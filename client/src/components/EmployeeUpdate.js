@@ -5,11 +5,7 @@ const EmployeeUpdate = ({ employeeData }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(
-      "🚀 ~ file: EmployeeUpdate.js:10 ~ handleChange ~ e.target:",
-      e.target
-    );
-
+   
     if (name === "Age") {
       console.log("age insisde", name, value);
       const valuek = parseInt(value);
