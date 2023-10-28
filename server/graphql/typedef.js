@@ -39,6 +39,8 @@ const typeDefs = gql`
         Department: String
         EmployeeType: String
       ): Employee
+
+      deleteEmployee(id: ID!): String
   }
 `;
 

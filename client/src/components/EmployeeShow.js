@@ -5,6 +5,15 @@ import EmployeeUpdate from "./EmployeeUpdate";
 const EmployeeShow = () => {
   const [employ̥ees, setEmployees] = useState([]);
 
+
+  useEffect(() => {
+
+    getEmployees();
+
+
+
+  }, []);
+
   const getEmployees = () => {
     let query = `query GetEmployees {
       getEmployees {
@@ -33,13 +42,6 @@ const EmployeeShow = () => {
 
     })
   }
-  useEffect(() => {
-
-    getEmployees();
-
-
-
-  }, []);
 
   const searchEmployees = (e) => {
     e.preventDefault();
@@ -83,6 +85,38 @@ query ExampleQuery($name: String!) {
     })
 
 
+    
+
+  }
+
+  const deleteEmployee = (item) =>{
+   
+    console.log("working till here",item);
+    const _id = item._id;
+    let data = {
+      _id:_id
+    }
+    let query = `
+    mutation Mutation($_id: ID!) {
+      deleteEmployee(id: $_id)
+    }
+    `
+    fetch("http://localhost:4000/graphql", {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query: query,
+        variables: data,
+
+      })
+    }).then(res => res.json()).then(function (res) {
+
+
+
+      getEmployees();
+    })
+
+    
   }
 
   return (
@@ -124,6 +158,7 @@ query ExampleQuery($name: String!) {
               <td>{item.EmployeeType}</td>
               <td>{item.CurrentStatus}</td>
               <EmployeeUpdate employeeData={item}></EmployeeUpdate>
+              <button onClick={() =>deleteEmployee(item)}>Delete</button>
             </tr>
 
           ))}

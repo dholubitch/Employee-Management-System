@@ -72,6 +72,29 @@ const resolvers = {
       const data = new Employee(updatedEmployee);
       return data;
     },
+
+    deleteEmployee: async (_root, args) => {
+      
+      const { id} = args;
+
+      // Use Moment.js to parse the updated DateOfJoining string if it's provided
+      if (!id) {
+       return "Error from server side";
+      }
+
+      // Find the employee by ID and update their data
+      const deletedEmployee = await Employee.findByIdAndDelete(id, {
+        new: true, // Return the updated document
+        runValidators: true, // Run Mongoose validators
+      });
+
+      if (!deletedEmployee) {
+        throw new Error("Employee not found");
+      }
+      
+      return "Delete Done";
+    },
+
   
   },
 };
