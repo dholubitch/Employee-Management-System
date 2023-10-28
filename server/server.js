@@ -9,7 +9,7 @@ const resolvers = require('./graphql/resolver.js');
 
 
 
-//   type Employee {
+
 //     _id: ID!
 //     FirstName: String!
 //     LastName: String!

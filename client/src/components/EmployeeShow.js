@@ -2,8 +2,10 @@ import { useEffect, useState } from "react"
 import EmployeeUpdate from "./EmployeeUpdate";
 
 
+
 const EmployeeShow = () => {
-  const [employ̥ees, setEmployees] = useState([]);
+  const [employees, setEmployees] = useState([]);
+  const [offset,setOffset] = useState(0);
 
 
   useEffect(() => {
@@ -14,31 +16,66 @@ const EmployeeShow = () => {
 
   }, []);
 
+  useEffect(() => {
+
+    getEmployees();
+
+
+
+  }, [offset]);
+
   const getEmployees = () => {
-    let query = `query GetEmployees {
-      getEmployees {
+    let updatingData = employees;
+
+    let query = `query Query($limitValue: Int!, $offset: Int!) {
+      getEmployees(limitValue: $limitValue, offset: $offset) {
         Age
         DateOfJoining
         Department
-        EmployeeType
-        LastName
         FirstName
+        EmployeeType
         Title
+        LastName
         _id
       }
     }`
+
+    let data ={
+ 
+  
+  
+      "limitValue": 5,
+      "offset": offset
+    }
+
+
     fetch("http://localhost:4000/graphql", {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         query: query,
+        variables:data,
 
       })
     }).then(res => res.json()).then(function (res) {
+     
+
+      if(offset ==0){
+        
+
+        setEmployees(res.data.getEmployees);
+      
+      }
+      else{
+      
+       
 
 
-      setEmployees(res.data.getEmployees);
-      console.log("🚀 ~ file: EmployeeShow.js:31 ~ useEffect ~ res.data.getEmployees:", res.data.getEmployees)
+        setEmployees(employees =>[...employees, ...res.data.getEmployees]);
+      console.log("employees",employees)
+      }
+      
+      
 
     })
   }
@@ -85,16 +122,61 @@ query ExampleQuery($name: String!) {
     })
 
 
-    
+
 
   }
 
-  const deleteEmployee = (item) =>{
-   
-    console.log("working till here",item);
+  const filterEmployees = (e) => {
+    e.preventDefault();
+    console.log(typeof e.target.value);
+    let type = e.target.value;
+    if (type.length == 0) {
+      return getEmployees();
+    }
+    let query = `
+    query FilterEmployees($type: String!) {
+      filterEmployees(type: $type) {
+        FirstName
+        LastName
+        _id
+        Title
+        EmployeeType
+        Department
+        DateOfJoining
+        Age
+      }
+    }
+`;
+    let data = {
+      "type": type
+    }
+
+    fetch("http://localhost:4000/graphql", {
+      method: 'POST',
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query: query,
+        variables: data,
+
+      })
+    }).then(res => res.json()).then(function (res) {
+
+
+
+      setEmployees(res.data.filterEmployees);
+    })
+
+
+
+
+  }
+
+  const deleteEmployee = (item) => {
+
+    console.log("working till here", item);
     const _id = item._id;
     let data = {
-      _id:_id
+      _id: _id
     }
     let query = `
     mutation Mutation($_id: ID!) {
@@ -116,7 +198,7 @@ query ExampleQuery($name: String!) {
       getEmployees();
     })
 
-    
+
   }
 
   return (
@@ -132,6 +214,15 @@ query ExampleQuery($name: String!) {
             onChange={searchEmployees}
           />
         </div>
+        <div>
+          <label htmlFor="filterDropdown">Filter by Employee Type: </label>
+          <select id="filterDropdown" onChange={filterEmployees}>
+            <option value="">All Types</option>
+            <option value="Full-Time">Full-Time</option>
+            <option value="Part-Time">Part-Time</option>
+            <option value="Contractor">Contractor</option>
+          </select>
+        </div>
         <thead>
           <tr>
             <th>FirstName</th>
@@ -146,7 +237,7 @@ query ExampleQuery($name: String!) {
         </thead>
         <tbody>
 
-          {employ̥ees.map((item, index) => (
+          {employees.map((item, index) => (
 
             <tr key={index}>
               <td>{item.FirstName}</td>
@@ -158,13 +249,14 @@ query ExampleQuery($name: String!) {
               <td>{item.EmployeeType}</td>
               <td>{item.CurrentStatus}</td>
               <EmployeeUpdate employeeData={item}></EmployeeUpdate>
-              <button onClick={() =>deleteEmployee(item)}>Delete</button>
+              <button onClick={() => deleteEmployee(item)}>Delete</button>
             </tr>
 
           ))}
 
         </tbody>
       </table>
+      <button onClick={() =>setOffset(offset+5)}>List More</button>
     </div>
   )
 }

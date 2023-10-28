@@ -13,9 +13,13 @@ const typeDefs = gql`
   }
 
   type Query {
-    getEmployees: [Employee]!
+    getEmployees(
+      limitValue: Int! 
+      offset: Int!
+      ): [Employee]!
     getEmployee(id: ID!): Employee
     searchEmployees(name: String!):[Employee]!
+    filterEmployees(type: String!):[Employee]!
   }
 
   type Mutation {
