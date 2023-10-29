@@ -161,7 +161,8 @@ query ExampleQuery($name: String!) {
   };
 
   const updateEmployee = (item) => {
-    navigate("/update");
+    navigate("/update",
+    { state: { item } });
   }
   return (
     <div className="container mt-4">
@@ -226,18 +227,20 @@ query ExampleQuery($name: String!) {
               <td>{item.CurrentStatus}</td>
               <td>
              
+           
               <button
-                  className="btn btn-danger"
+                  className="btn btn-danger mx-3"
                   onClick={() => updateEmployee(item)}
                 >
                   Update
-                </button>  <EmployeeUpdate employeeData={item} />
+                </button>  
                 <button
                   className="btn btn-danger"
                   onClick={() => deleteEmployee(item)}
                 >
                   Delete
                 </button>
+
               </td>
             </tr>
           ))}

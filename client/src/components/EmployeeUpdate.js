@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-
-const EmployeeUpdate = ({ employeeData }) => {
-  const [employee, setEmployee] = useState(employeeData);
-
+import { useLocation } from 'react-router-dom';
+const EmployeeUpdate = () => {
+  const { state } = useLocation();
+  const [employee, setEmployee] = useState(state.item);
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
-   
+ 
+  
     if (name === "Age") {
       console.log("age insisde", name, value);
       const valuek = parseInt(value);
