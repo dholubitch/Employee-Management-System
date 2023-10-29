@@ -59,6 +59,16 @@ const EmployeeUpdate = () => {
       });
   };
 
+  const dateConversion = (timeStamp) => {
+    console.log("🚀 ~ file: EmployeeUpdate.js:63 ~ dateConversion ~ timeStamp:", timeStamp)
+    
+    
+    const formattedDate = moment(parseInt(timeStamp)).format("YYYY-MM-DD");
+    console.log("KAK date",typeof formattedDate);
+    return formattedDate;
+
+  }
+
 
 
   return (
@@ -109,10 +119,10 @@ const EmployeeUpdate = () => {
                 Date of Joining:
               </label>
               <input
-                type="text"
+                type="text  "
                 class="form-control"
                 name="DateOfJoining"
-                value={employee.DateOfJoining}
+                defaultValue={dateConversion(employee.DateOfJoining)}
                 onChange={handleChange}
               />
             </div>

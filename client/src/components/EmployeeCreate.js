@@ -81,7 +81,7 @@ const EmployeeCreate = () => {
     <div class="container d-flex justify-content-center align-items-center">
       <div class="card">
         <div class="card-body">
-          <h2 class="card-title text-center">Update Employee Data</h2>
+          <h2 class="card-title text-center">Create Employee Data</h2>
           <form onSubmit={handleSubmit}>
             <div class="mb-3">
               <label for="FirstName" class="form-label">
