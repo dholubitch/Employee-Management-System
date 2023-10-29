@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import moment from "moment";
 const EmployeeUpdate = () => {
   const { state } = useLocation();
   const [employee, setEmployee] = useState(state.item);
- 
+
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
- 
-  
+
     if (name === "Age") {
       console.log("age insisde", name, value);
       const valuek = parseInt(value);
@@ -57,89 +59,113 @@ const EmployeeUpdate = () => {
       });
   };
 
+
+
   return (
-    <div>
-      <h2>Update Employee Data</h2>
-      <form onSubmit={handleUpdate}>
-        <div>
-          <label>FirstName:</label>
-          <input
-            type="text"
-            name="FirstName"
-            value={employee.FirstName}
-            onChange={(e) => handleChange(e)}
-          />
+    <div class="container d-flex justify-content-center align-items-center">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center">Update Employee Data</h2>
+          <form>
+            <div class="mb-3">
+              <label for="FirstName" class="form-label">
+                First Name:
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="FirstName"
+                value={employee.FirstName}
+                onChange={(e) => handleChange(e)}
+                placeholder="Enter First Name"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="LastName" class="form-label">
+                Last Name:
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="LastName"
+                value={employee.LastName}
+                onChange={handleChange}
+              />
+            </div>
+            <div class="mb-3">
+              <label for="Age" class="form-label">
+                Age:
+              </label>
+              <input
+                type="number"
+                class="form-control"
+                name="Age"
+                value={employee.Age}
+                onChange={handleChange}
+              />
+            </div>
+            <div class="mb-3">
+              <label for="DateOfJoining" class="form-label">
+                Date of Joining:
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="DateOfJoining"
+                value={employee.DateOfJoining}
+                onChange={handleChange}
+              />
+            </div>
+            <div class="mb-3">
+              <label for="Title" class="form-label">
+                Title:
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="Title"
+                value={employee.Title}
+                onChange={handleChange}
+              />
+            </div>
+            <div class="mb-3">
+              <label for="Department" class="form-label">
+                Department:
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="Department"
+                value={employee.Department}
+                onChange={handleChange}
+              />
+            </div>
+            <div class="mb-3">
+              <label for="EmployeeType" class="form-label">
+                Employee Type:
+              </label>
+              <select
+                class="form-select"
+                name="EmployeeType"
+                value={employee.EmployeeType}
+                onChange={handleChange}
+              >
+                <option value="Full-Time">Full-Time</option>
+                <option value="Part-Time">Part-Time</option>
+                <option value="Contractor">Contractor</option>
+              </select>
+            </div>
+            
+            <button
+              type="button"
+              onClick={handleUpdate}
+              class="btn btn-primary btn-block"
+            >
+              Update Employee
+            </button>
+          </form>
         </div>
-        <div>
-          <label>LastName:</label>
-          <input
-            type="text"
-            name="LastName"
-            value={employee.LastName}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Age:</label>
-          <input
-            type="number"
-            name="Age"
-            value={employee.Age}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>DateOfJoining:</label>
-          <input
-            type="text"
-            name="DateOfJoining"
-            value={employee.DateOfJoining}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Title:</label>
-          <input
-            type="text"
-            name="Title"
-            value={employee.Title}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Department:</label>
-          <input
-            type="text"
-            name="Department"
-            value={employee.Department}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>EmployeeType:</label>
-          <select
-            name="EmployeeType"
-            value={employee.EmployeeType}
-            onChange={handleChange}
-          >
-            <option value="Full-Time">Full-Time</option>
-            <option value="Part-Time">Part-Time</option>
-            <option value="Contractor">Contractor</option>
-          </select>
-        </div>
-        <div>
-          <label>CurrentStatus:</label>
-          <input
-            type="number"
-            name="CurrentStatus"
-            value={1}
-            onChange={handleChange}
-          />
-        </div>
-        <button type="button" onClick={handleUpdate}>
-          Update Employee
-        </button>
-      </form>
+      </div>
     </div>
   );
 };

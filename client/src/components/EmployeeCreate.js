@@ -14,6 +14,7 @@ const EmployeeCreate = () => {
 
   const handleChange = (e) => {
     let { name, value } = e.target;
+    
 
     if (name === "age") {
       let valuek = parseInt(value);
@@ -27,10 +28,11 @@ const EmployeeCreate = () => {
         [name]: value,
       });
     }
-    console.log("Employee", employee);
+   
   };
 
   const handleSubmit = (e) => {
+    console.log("Employee", employee);
     e.preventDefault();
     let query = `mutation addEmployee(
   $firstName: String!, 
@@ -76,86 +78,110 @@ const EmployeeCreate = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>FirstName:</label>
-          <input
-            type="text"
-            name="firstName"
-            value={employee.firstName}
-            onChange={handleChange}
-          />
+    <div class="container d-flex justify-content-center align-items-center">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center">Update Employee Data</h2>
+          <form onSubmit={handleSubmit}>
+            <div class="mb-3">
+              <label for="FirstName" class="form-label">
+                First Name:
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="firstName"
+                defaultValue={employee.firstName}
+                onChange={(e) => handleChange(e)}
+                placeholder="Enter First Name"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="LastName" class="form-label">
+                Last Name:
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="lastName"
+                defaultValue={employee.lastName}
+                onChange={handleChange}
+              />
+            </div>
+            <div class="mb-3">
+              <label for="Age" class="form-label">
+                Age:
+              </label>
+              <input
+                type="number"
+                class="form-control"
+                name="age"
+                defaultValue={employee.age}
+                onChange={handleChange}
+              />
+            </div>
+            <div class="mb-3">
+              <label for="DateOfJoining" class="form-label">
+                Date of Joining:
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="dateOfJoining"
+                defaultValue={employee.dateOfJoining}
+                onChange={handleChange}
+              />
+            </div>
+            <div class="mb-3">
+              <label for="Title" class="form-label">
+                Title:
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="title"
+                defaultValue={employee.title}
+                onChange={handleChange}
+              />
+            </div>
+            <div class="mb-3">
+              <label for="Department" class="form-label">
+                Department:
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                name="department"
+                defaultValue={employee.department}
+                onChange={handleChange}
+              />
+            </div>
+            <div class="mb-3">
+              <label for="EmployeeType" class="form-label">
+                Employee Type:
+              </label>
+              <select
+                class="form-select"
+                name="employeeType"
+                defaultValue={employee.employeeType}
+                onChange={handleChange}
+              >
+                <option value="Full-Time">Full-Time</option>
+                <option value="Part-Time">Part-Time</option>
+                <option value="Contractor">Contractor</option>
+              </select>
+            </div>
+            
+            <button
+              type="submit"
+             
+              class="btn btn-primary btn-block"
+            >
+              Create Employee
+            </button>
+          </form>
         </div>
-        <div>
-          <label>LastName:</label>
-          <input
-            type="text"
-            name="lastName"
-            value={employee.lastName}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Age:</label>
-          <input
-            type="number"
-            name="age"
-            value={employee.age}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>DateOfJoining:</label>
-          <input
-            type="text"
-            name="dateOfJoining"
-            value={employee.dateOfJoining}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Title:</label>
-          <input
-            type="text"
-            name="title"
-            value={employee.title}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>Department:</label>
-          <input
-            type="text"
-            name="department"
-            value={employee.department}
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <label>EmployeeType:</label>
-          <select
-            type="text"
-            name="employeeType"
-            value={employee.employeeType}
-            onChange={handleChange}
-          >
-            <option value="Full-Time">Full-Time</option>
-            <option value="Part-Time">Part-Time</option>
-            <option value="Contractor">Contractor</option>
-          </select>
-        </div>
-        <div>
-          <label>CurrentStatus:</label>
-          <input
-            type="number"
-            name="currentStatus"
-            value={employee.currentStatus}
-            onChange={handleChange}
-          />
-        </div>
-        <button type="submit">Create Employee</button>
-      </form>
+      </div>
     </div>
   );
 };

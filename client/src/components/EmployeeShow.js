@@ -17,8 +17,7 @@ const EmployeeShow = () => {
   }, [offset]);
 
   const getEmployees = () => {
-    let updatingData = employees;
-
+    
     let query = `query Query($limitValue: Int!, $offset: Int!) {
       getEmployees(limitValue: $limitValue, offset: $offset) {
         Age
