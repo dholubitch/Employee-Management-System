@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import EmployeeUpdate from "./EmployeeUpdate";
-
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { BiSearch } from "react-icons/bi";
 const EmployeeShow = () => {
   const [employees, setEmployees] = useState([]);
   const [offset, setOffset] = useState(0);
-
+  const navigate = useNavigate();
+ 
   useEffect(() => {
     getEmployees();
   }, []);
@@ -157,29 +160,46 @@ query ExampleQuery($name: String!) {
       });
   };
 
+  const updateEmployee = (item) => {
+    navigate("/update");
+  }
   return (
-    <div  className="">
-      <div className="border border-success p-2 mb-2 border-opacity-25 ">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="Enter employee name or other criteria"
-          className="w-100 text-center"
-          onChange={searchEmployees}
-        />
+    <div className="container mt-4">
+      <div className="row">
+        <div className="col-md-6 d-flex align-items-end">
+          <div className="input-group">
+            <input
+              type="text"
+              id="searchInput"
+              className="form-control"
+              placeholder="Search employees by name or criteria"
+              onChange={searchEmployees}
+            />
+
+            <div className="input-group-prepend">
+              <span className="input-group-text h-100">
+                <BiSearch className="position-relative top-0 " />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-6">
+          <label htmlFor="filterDropdown" className="form-label">
+            Filter by Employee Type:
+          </label>
+          <select
+            id="filterDropdown"
+            className="form-select"
+            onChange={filterEmployees}
+          >
+            <option value="">All Types</option>
+            <option value="Full-Time">Full-Time</option>
+            <option value="Part-Time">Part-Time</option>
+            <option value="Contractor">Contractor</option>
+          </select>
+        </div>
       </div>
-      <div>
-        <label htmlFor="filterDropdown">Filter by Employee Type: </label>
-        <select id="filterDropdown" onChange={filterEmployees}>
-          <option value="">All Types</option>
-          <option value="Full-Time">Full-Time</option>
-          <option value="Part-Time">Part-Time</option>
-          <option value="Contractor">Contractor</option>
-        </select>
-      </div>
-      <table className="d-flex justify-content-center align-items-center flex-column">
-        
-        <tbody>
+      <table className="table mt-4">
         <thead>
           <tr>
             <th>FirstName</th>
@@ -190,8 +210,10 @@ query ExampleQuery($name: String!) {
             <th>Department</th>
             <th>EmployeeType</th>
             <th>CurrentStatus</th>
+            <th>Action</th>
           </tr>
         </thead>
+        <tbody>
           {employees.map((item, index) => (
             <tr key={index}>
               <td>{item.FirstName}</td>
@@ -202,13 +224,33 @@ query ExampleQuery($name: String!) {
               <td>{item.Department}</td>
               <td>{item.EmployeeType}</td>
               <td>{item.CurrentStatus}</td>
-              <EmployeeUpdate employeeData={item}></EmployeeUpdate>
-              <button onClick={() => deleteEmployee(item)}>Delete</button>
+              <td>
+             
+              <button
+                  className="btn btn-danger"
+                  onClick={() => updateEmployee(item)}
+                >
+                  Update
+                </button>  <EmployeeUpdate employeeData={item} />
+                <button
+                  className="btn btn-danger"
+                  onClick={() => deleteEmployee(item)}
+                >
+                  Delete
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <button onClick={() => setOffset(offset + 5)}>List More</button>
+      <div className="text-center">
+        <button
+          className="btn btn-primary"
+          onClick={() => setOffset(offset + 5)}
+        >
+          Load More
+        </button>
+      </div>
     </div>
   );
 };
