@@ -46,7 +46,7 @@ const EmployeeUpdate = () => {
     }
   }`;
 
-    fetch("http://localhost:4000/", {
+    fetch("https://ems-backend-zqv9.onrender.com", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
