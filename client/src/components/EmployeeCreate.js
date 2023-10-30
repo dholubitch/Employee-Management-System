@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 const EmployeeCreate = () => {
   const [employee, setEmployee] = useState({
     firstName: "",
@@ -11,6 +11,7 @@ const EmployeeCreate = () => {
     employeeType: "",
     currentStatus: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     let { name, value } = e.target;
@@ -73,7 +74,7 @@ const EmployeeCreate = () => {
     })
       .then((res) => res.json())
       .then(function (res) {
-        console.log("data,submitted", res);
+        navigate("/");
       });
   };
 
@@ -125,7 +126,7 @@ const EmployeeCreate = () => {
                 Date of Joining:
               </label>
               <input
-                type="text"
+                type="date"
                 class="form-control"
                 name="dateOfJoining"
                 defaultValue={employee.dateOfJoining}

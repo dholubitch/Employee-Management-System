@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import EmployeeUpdate from "./EmployeeUpdate";
+import { createElement, useEffect, useState } from "react";
+import moment from "moment";
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
@@ -16,8 +17,15 @@ const EmployeeShow = () => {
     getEmployees();
   }, [offset]);
 
+  const dateConversion = (timeStamp) => {
+    const formattedDate = moment(parseInt(timeStamp)).format("YYYY-MM-DD");
+
+    return formattedDate;
+  };
+
+
   const getEmployees = () => {
-    
+
     let query = `query Query($limitValue: Int!, $offset: Int!) {
       getEmployees(limitValue: $limitValue, offset: $offset) {
         Age
@@ -54,6 +62,10 @@ const EmployeeShow = () => {
         }
       });
   };
+
+  const createEmployee = () => {
+    navigate("/create");
+  }
 
   const searchEmployees = (e) => {
     e.preventDefault();
@@ -165,6 +177,10 @@ query ExampleQuery($name: String!) {
   }
   return (
     <div className="container mt-4">
+      <div class="d-flex flex-row align-items-center justify-content-between" >
+    <h2 class="text-center my-4">Employee's Portal</h2>
+    <button type="button" class="btn btn-primary my-4" onClick={createEmployee}>Create Employee</button>
+</div>
       <div className="row">
         <div className="col-md-6 d-flex align-items-end">
           <div className="input-group">
@@ -184,22 +200,23 @@ query ExampleQuery($name: String!) {
           </div>
         </div>
         <div className="col-md-6">
-          <label htmlFor="filterDropdown" className="form-label">
-            Filter by Employee Type:
-          </label>
+         
           <select
             id="filterDropdown"
             className="form-select"
             onChange={filterEmployees}
           >
-            <option value="">All Types</option>
+            <option value=""> 
+            Filter by Employee Type
+         </option>
+          
             <option value="Full-Time">Full-Time</option>
             <option value="Part-Time">Part-Time</option>
             <option value="Contractor">Contractor</option>
           </select>
         </div>
       </div>
-      <table className="table mt-4">
+      <table className="table mt-4 border ">
         <thead>
           <tr>
             <th>FirstName</th>
@@ -219,7 +236,7 @@ query ExampleQuery($name: String!) {
               <td>{item.FirstName}</td>
               <td>{item.LastName}</td>
               <td>{item.Age}</td>
-              <td>{item.DateOfJoining}</td>
+              <td>{dateConversion(item.DateOfJoining)}</td>
               <td>{item.Title}</td>
               <td>{item.Department}</td>
               <td>{item.EmployeeType}</td>
@@ -228,7 +245,7 @@ query ExampleQuery($name: String!) {
              
            
               <button
-                  className="btn btn-danger mx-3"
+                  className="btn btn-warning mx-3"
                   onClick={() => updateEmployee(item)}
                 >
                   Update

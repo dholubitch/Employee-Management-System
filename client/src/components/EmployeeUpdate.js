@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 const EmployeeUpdate = () => {
   const { state } = useLocation();
   const [employee, setEmployee] = useState(state.item);
-
-
-
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -50,26 +49,17 @@ const EmployeeUpdate = () => {
     })
       .then((res) => res.json())
       .then(function (res) {
-        console.log(
-          "🚀 ~ file: EmployeeUpdate.js:49 ~ handleUpdate ~ res:",
-          res
-        );
+       
 
-        console.log("done");
+        navigate("/");
       });
   };
 
   const dateConversion = (timeStamp) => {
-    console.log("🚀 ~ file: EmployeeUpdate.js:63 ~ dateConversion ~ timeStamp:", timeStamp)
-    
-    
     const formattedDate = moment(parseInt(timeStamp)).format("YYYY-MM-DD");
-    console.log("KAK date",typeof formattedDate);
+
     return formattedDate;
-
-  }
-
-
+  };
 
   return (
     <div class="container d-flex justify-content-center align-items-center">
@@ -165,7 +155,7 @@ const EmployeeUpdate = () => {
                 <option value="Contractor">Contractor</option>
               </select>
             </div>
-            
+
             <button
               type="button"
               onClick={handleUpdate}
