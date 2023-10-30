@@ -23,6 +23,7 @@
   "devDependencies": {
     "@babel/cli": "^7.22.15",
     "@babel/core": "^7.22.15",
-    "@babel/preset-react": "^7.22.15"
+    "@babel/preset-react": "^7.22.15",
+    "nodemon": "^3.0.1"
   }
 }
