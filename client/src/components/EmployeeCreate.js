@@ -64,7 +64,7 @@ const EmployeeCreate = () => {
   }
 }`;
 
-    fetch("http://localhost:4000/graphql", {
+    fetch("https://ems-backend-zqv9.onrender.com", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -74,6 +74,7 @@ const EmployeeCreate = () => {
     })
       .then((res) => res.json())
       .then(function (res) {
+        console.log(res)
         navigate("/");
       });
   };
@@ -164,7 +165,7 @@ const EmployeeCreate = () => {
               <select
                 class="form-select"
                 name="employeeType"
-                defaultValue={employee.employeeType}
+                value={employee.employeeType}
                 onChange={handleChange}
               >
                 <option value="Full-Time">Full-Time</option>

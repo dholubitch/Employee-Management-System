@@ -44,7 +44,7 @@ const EmployeeShow = () => {
       offset: offset,
     };
 
-    fetch("http://localhost:4000/graphql", {
+    fetch("https://ems-backend-zqv9.onrender.com", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -93,7 +93,7 @@ query ExampleQuery($name: String!) {
       name: name,
     };
 
-    fetch("http://localhost:4000/graphql", {
+    fetch("https://ems-backend-zqv9.onrender.com", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -132,7 +132,7 @@ query ExampleQuery($name: String!) {
       type: type,
     };
 
-    fetch("http://localhost:4000/graphql", {
+    fetch("https://ems-backend-zqv9.onrender.com", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -157,7 +157,7 @@ query ExampleQuery($name: String!) {
       deleteEmployee(id: $_id)
     }
     `;
-    fetch("http://localhost:4000/graphql", {
+    fetch("https://ems-backend-zqv9.onrender.com", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

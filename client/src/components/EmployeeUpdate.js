@@ -39,7 +39,7 @@ const EmployeeUpdate = () => {
     }
   }`;
 
-    fetch("http://localhost:4000/graphql", {
+    fetch("https://ems-backend-zqv9.onrender.com", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -112,7 +112,7 @@ const EmployeeUpdate = () => {
                 type="text  "
                 class="form-control"
                 name="DateOfJoining"
-                defaultValue={dateConversion(employee.DateOfJoining)}
+               defaultValue={dateConversion(employee.DateOfJoining)}
                 onChange={handleChange}
               />
             </div>
