@@ -75,10 +75,7 @@ const resolvers = {
     updateEmployee: async (_root, args) => {
       const { id, ...updateData } = args;
 
-      // Use Moment.js to parse the updated DateOfJoining string if it's provided
-      if (updateData.DateOfJoining) {
-        updateData.DateOfJoining = moment(updateData.DateOfJoining);
-      }
+     
 
       // Find the employee by ID and update their data
       const updatedEmployee = await Employee.findByIdAndUpdate(id, updateData, {

@@ -16,7 +16,15 @@ const EmployeeUpdate = () => {
         ...employee,
         [name]: valuek,
       });
-    } else {
+    } 
+    else if(name ==="DateOfJoining" && moment(value).isValid()) {
+    const valueK = moment(value);
+    setEmployee({
+    ...employee,
+      [name]: valueK,
+    });
+    }
+    else {
       setEmployee({
         ...employee,
         [name]: value,
@@ -25,7 +33,6 @@ const EmployeeUpdate = () => {
   };
 
   const handleUpdate = () => {
-    console.log("inside", employee);
     let query = `mutation Mutation($_id: ID!, $FirstName: String, $LastName: String, $Age: Int, $Title: String, $DateOfJoining: String, $Department: String, $EmployeeType: String) {
     updateEmployee(id: $_id, FirstName: $FirstName, LastName: $LastName, Age: $Age, Title: $Title, DateOfJoining: $DateOfJoining, Department: $Department, EmployeeType: $EmployeeType) {
       Age
@@ -39,7 +46,7 @@ const EmployeeUpdate = () => {
     }
   }`;
 
-    fetch("https://ems-backend-zqv9.onrender.com", {
+    fetch("http://localhost:4000/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -49,8 +56,6 @@ const EmployeeUpdate = () => {
     })
       .then((res) => res.json())
       .then(function (res) {
-       
-
         navigate("/");
       });
   };
@@ -109,10 +114,10 @@ const EmployeeUpdate = () => {
                 Date of Joining:
               </label>
               <input
-                type="text  "
+                type="date"
                 class="form-control"
                 name="DateOfJoining"
-               defaultValue={dateConversion(employee.DateOfJoining)}
+                defaultValue={dateConversion(employee.DateOfJoining)}
                 onChange={handleChange}
               />
             </div>
