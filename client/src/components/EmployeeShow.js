@@ -1,17 +1,12 @@
-import { createElement, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import moment from "moment";
-
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { BiSearch } from "react-icons/bi";
+
 const EmployeeShow = () => {
   const [employees, setEmployees] = useState([]);
   const [offset, setOffset] = useState(0);
   const navigate = useNavigate();
- 
-  useEffect(() => {
-    getEmployees();
-  }, []);
 
   useEffect(() => {
     getEmployees();
@@ -19,25 +14,24 @@ const EmployeeShow = () => {
 
   const dateConversion = (timeStamp) => {
     const formattedDate = moment(parseInt(timeStamp)).format("YYYY-MM-DD");
-
     return formattedDate;
   };
 
-
   const getEmployees = () => {
-
-    let query = `query Query($limitValue: Int!, $offset: Int!) {
-      getEmployees(limitValue: $limitValue, offset: $offset) {
-        Age
-        DateOfJoining
-        Department
-        FirstName
-        EmployeeType
-        Title
-        LastName
-        _id
+    let query = `
+      query Query($limitValue: Int!, $offset: Int!) {
+        getEmployees(limitValue: $limitValue, offset: $offset) {
+          Age
+          DateOfJoining
+          Department
+          FirstName
+          EmployeeType
+          Title
+          LastName
+          _id
+        }
       }
-    }`;
+    `;
 
     let data = {
       limitValue: 5,
@@ -54,41 +48,39 @@ const EmployeeShow = () => {
     })
       .then((res) => res.json())
       .then(function (res) {
-        if (offset == 0) {
+        if (offset === 0) {
           setEmployees(res.data.getEmployees);
         } else {
           setEmployees((employees) => [...employees, ...res.data.getEmployees]);
-          console.log("employees", employees);
         }
       });
   };
 
   const createEmployee = () => {
     navigate("/create");
-  }
+  };
 
   const searchEmployees = (e) => {
     e.preventDefault();
-    console.log(typeof e.target.value);
     let name = e.target.value;
-    if (name.length == 0) {
+    if (name.length === 0) {
       return getEmployees();
     }
     let query = `
-query ExampleQuery($name: String!) {
- 
-  searchEmployees(name: $name) {
-    Age
-    DateOfJoining
-    Department
-    EmployeeType
-    Title
-    LastName
-    FirstName
-    _id
-  }
-}
-`;
+      query ExampleQuery($name: String!) {
+        searchEmployees(name: $name) {
+          Age
+          DateOfJoining
+          Department
+          EmployeeType
+          Title
+          LastName
+          FirstName
+          _id
+        }
+      }
+    `;
+
     let data = {
       name: name,
     };
@@ -109,25 +101,25 @@ query ExampleQuery($name: String!) {
 
   const filterEmployees = (e) => {
     e.preventDefault();
-    console.log(typeof e.target.value);
     let type = e.target.value;
-    if (type.length == 0) {
+    if (type.length === 0) {
       return getEmployees();
     }
     let query = `
-    query FilterEmployees($type: String!) {
-      filterEmployees(type: $type) {
-        FirstName
-        LastName
-        _id
-        Title
-        EmployeeType
-        Department
-        DateOfJoining
-        Age
+      query FilterEmployees($type: String!) {
+        filterEmployees(type: $type) {
+          FirstName
+          LastName
+          _id
+          Title
+          EmployeeType
+          Department
+          DateOfJoining
+          Age
+        }
       }
-    }
-`;
+    `;
+
     let data = {
       type: type,
     };
@@ -147,16 +139,16 @@ query ExampleQuery($name: String!) {
   };
 
   const deleteEmployee = (item) => {
-    console.log("working till here", item);
     const _id = item._id;
     let data = {
       _id: _id,
     };
     let query = `
-    mutation Mutation($_id: ID!) {
-      deleteEmployee(id: $_id)
-    }
+      mutation Mutation($_id: ID!) {
+        deleteEmployee(id: $_id)
+      }
     `;
+
     fetch("https://ems-backend-zqv9.onrender.com", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -172,96 +164,108 @@ query ExampleQuery($name: String!) {
   };
 
   const updateEmployee = (item) => {
-    navigate("/update",
-    { state: { item } });
-  }
+    navigate("/update", { state: { item } });
+  };
+
   return (
-    <div className="container mt-4">
-      <div class="d-flex flex-row align-items-center justify-content-between" >
-    <h2 class="text-center my-4">Employee's Portal</h2>
-    <button type="button" class="btn btn-primary my-4" onClick={createEmployee}>Create Employee</button>
-</div>
-      <div className="row">
-        <div className="col-md-6 d-flex align-items-end">
-          <div className="input-group">
+    <div className="container mx-auto mt-4">
+      <div className="flex justify-between items-center my-4">
+        <h2 className="text-center">Employee's Portal</h2>
+        <button className="btn btn-primary my-4" onClick={createEmployee}>
+          Create Employee
+        </button>
+      </div>
+      <div className="md:flex md:items-end">
+        <div className="md:w-1/2">
+          <div className="relative rounded-md shadow-sm">
             <input
               type="text"
               id="searchInput"
-              className="form-control"
+              className="form-input block w-full pr-12 sm:text-sm sm:leading-5"
               placeholder="Search employees by name or criteria"
               onChange={searchEmployees}
             />
-
-            <div className="input-group-prepend">
-              <span className="input-group-text h-100">
-                <BiSearch className="position-relative top-0 " />
-              </span>
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <BiSearch className="h-5 w-5 text-gray-400" />
             </div>
           </div>
         </div>
-        <div className="col-md-6">
-         
+        <div className="mt-4 md:mt-0 md:w-1/2">
           <select
             id="filterDropdown"
-            className="form-select"
+            className="form-select block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm sm:leading-5"
             onChange={filterEmployees}
           >
-            <option value=""> 
-            Filter by Employee Type
-         </option>
-          
+            <option value="">Filter by Employee Type</option>
             <option value="Full-Time">Full-Time</option>
             <option value="Part-Time">Part-Time</option>
             <option value="Contractor">Contractor</option>
           </select>
         </div>
       </div>
-      <table className="table mt-4 border ">
-        <thead>
-          <tr>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>Age</th>
-            <th>DateOfJoining</th>
-            <th>Title</th>
-            <th>Department</th>
-            <th>EmployeeType</th>
-            <th>CurrentStatus</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {employees.map((item, index) => (
-            <tr key={index}>
-              <td>{item.FirstName}</td>
-              <td>{item.LastName}</td>
-              <td>{item.Age}</td>
-              <td>{dateConversion(item.DateOfJoining)}</td>
-              <td>{item.Title}</td>
-              <td>{item.Department}</td>
-              <td>{item.EmployeeType}</td>
-              <td>{item.CurrentStatus}</td>
-              <td>
-             
-           
-              <button
-                  className="btn btn-warning mx-3"
-                  onClick={() => updateEmployee(item)}
-                >
-                  Update
-                </button>  
-                <button
-                  className="btn btn-danger"
-                  onClick={() => deleteEmployee(item)}
-                >
-                  Delete
-                </button>
-
-              </td>
+      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                First Name
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Last Name
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Age
+              </th>
+              <th scope="col" className="px-6 py-3">
+                DateOfJoining
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Title
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Department
+              </th>
+              <th scope="col" className="px-6 py-3">
+                EmployeeType
+              </th>
+              <th scope="col" className="px-6 py-3">
+                CurrentStatus
+              </th>
+              <th scope="col" className="px-6 py-3">
+                <span className="sr-only">Action</span>
+              </th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {employees.map((item, index) => (
+              <tr key={index}>
+                <td>{item.FirstName}</td>
+                <td>{item.LastName}</td>
+                <td>{item.Age}</td>
+                <td>{dateConversion(item.DateOfJoining)}</td>
+                <td>{item.Title}</td>
+                <td>{item.Department}</td>
+                <td>{item.EmployeeType}</td>
+                <td>{item.CurrentStatus}</td>
+                <td>
+                  <button
+                    className="btn btn-warning mx-3"
+                    onClick={() => updateEmployee(item)}
+                  >
+                    Update
+                  </button>
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deleteEmployee(item)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <div className="text-center">
         <button
           className="btn btn-primary"

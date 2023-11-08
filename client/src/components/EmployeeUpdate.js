@@ -2,29 +2,28 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+
 const EmployeeUpdate = () => {
   const { state } = useLocation();
   const [employee, setEmployee] = useState(state.item);
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === "Age") {
-      console.log("age insisde", name, value);
       const valuek = parseInt(value);
       setEmployee({
         ...employee,
         [name]: valuek,
       });
-    } 
-    else if(name ==="DateOfJoining" && moment(value).isValid()) {
-    const valueK = moment(value);
-    setEmployee({
-    ...employee,
-      [name]: valueK,
-    });
-    }
-    else {
+    } else if (name === "DateOfJoining" && moment(value).isValid()) {
+      const valueK = moment(value).format("YYYY-MM-DD");
+      setEmployee({
+        ...employee,
+        [name]: valueK,
+      });
+    } else {
       setEmployee({
         ...employee,
         [name]: value,
@@ -60,97 +59,91 @@ const EmployeeUpdate = () => {
       });
   };
 
-  const dateConversion = (timeStamp) => {
-    const formattedDate = moment(parseInt(timeStamp)).format("YYYY-MM-DD");
-
-    return formattedDate;
-  };
-
   return (
-    <div class="container d-flex justify-content-center align-items-center">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-title text-center">Update Employee Data</h2>
+    <div className="container mx-auto mt-4">
+      <div className="card">
+        <div className="card-body">
+          <h2 className="card-title text-center">Update Employee Data</h2>
           <form>
-            <div class="mb-3">
-              <label for="FirstName" class="form-label">
+            <div className="mb-4">
+              <label htmlFor="FirstName" className="block text-sm font-medium text-gray-700">
                 First Name:
               </label>
               <input
                 type="text"
-                class="form-control"
+                className="form-input block w-full mt-1 border rounded p-2"
                 name="FirstName"
                 value={employee.FirstName}
-                onChange={(e) => handleChange(e)}
+                onChange={handleChange}
                 placeholder="Enter First Name"
               />
             </div>
-            <div class="mb-3">
-              <label for="LastName" class="form-label">
+            <div className="mb-4">
+              <label htmlFor="LastName" className="block text-sm font-medium text-gray-700">
                 Last Name:
               </label>
               <input
                 type="text"
-                class="form-control"
+                className="form-input block w-full mt-1 border rounded p-2"
                 name="LastName"
                 value={employee.LastName}
                 onChange={handleChange}
               />
             </div>
-            <div class="mb-3">
-              <label for="Age" class="form-label">
+            <div className="mb-4">
+              <label htmlFor="Age" className="block text-sm font-medium text-gray-700">
                 Age:
               </label>
               <input
                 type="number"
-                class="form-control"
+                className="form-input block w-full mt-1 border rounded p-2"
                 name="Age"
                 value={employee.Age}
                 onChange={handleChange}
               />
             </div>
-            <div class="mb-3">
-              <label for="DateOfJoining" class="form-label">
+            <div className="mb-4">
+              <label htmlFor="DateOfJoining" className="block text-sm font-medium text-gray-700">
                 Date of Joining:
               </label>
               <input
                 type="date"
-                class="form-control"
+                className="form-input block w-full mt-1 border rounded p-2"
                 name="DateOfJoining"
-                defaultValue={dateConversion(employee.DateOfJoining)}
+                value={moment(employee.DateOfJoining).format("YYYY-MM-DD")}
                 onChange={handleChange}
               />
             </div>
-            <div class="mb-3">
-              <label for="Title" class="form-label">
+            <div className="mb-4">
+              <label htmlFor="Title" className="block text-sm font-medium text-gray-700">
                 Title:
               </label>
               <input
                 type="text"
-                class="form-control"
+                className="form-input block w-full mt-1 border rounded p-2"
                 name="Title"
                 value={employee.Title}
                 onChange={handleChange}
               />
             </div>
-            <div class="mb-3">
-              <label for="Department" class="form-label">
+            <div className="mb-4">
+              <label htmlFor="Department" className="block text-sm font-medium text-gray-700">
                 Department:
               </label>
               <input
                 type="text"
-                class="form-control"
+                className="form-input block w-full mt-1 border rounded p-2"
                 name="Department"
                 value={employee.Department}
                 onChange={handleChange}
               />
             </div>
-            <div class="mb-3">
-              <label for="EmployeeType" class="form-label">
+            <div className="mb-4">
+              <label htmlFor="EmployeeType" className="block text-sm font-medium text-gray-700">
                 Employee Type:
               </label>
               <select
-                class="form-select"
+                className="form-select block w-full mt-1 border rounded p-2"
                 name="EmployeeType"
                 value={employee.EmployeeType}
                 onChange={handleChange}
@@ -164,7 +157,7 @@ const EmployeeUpdate = () => {
             <button
               type="button"
               onClick={handleUpdate}
-              class="btn btn-primary btn-block"
+              className="btn btn-primary w-full p-2 rounded"
             >
               Update Employee
             </button>
