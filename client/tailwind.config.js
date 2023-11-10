@@ -1,4 +1,5 @@
 module.exports = {
+  important: true,
   content: [
     "./src/**/*.{html,js}",
     "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",

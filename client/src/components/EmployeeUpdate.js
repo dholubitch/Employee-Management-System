@@ -60,90 +60,90 @@ const EmployeeUpdate = () => {
   };
 
   return (
-    <div className="container mx-auto mt-4">
-      <div className="card">
+    <div className="container mx-auto mt-4 ">
+      <div className="card  dark:bg-gray-800 dark:border-gray-700  dark:text-gray-400 ">
         <div className="card-body">
           <h2 className="card-title text-center">Update Employee Data</h2>
           <form>
-            <div className="mb-4">
-              <label htmlFor="FirstName" className="block text-sm font-medium text-gray-700">
+            <div className="mb-4 ">
+              <label htmlFor="FirstName" className="block text-sm font-medium text-gray-700  dark:text-gray-400">
                 First Name:
               </label>
               <input
                 type="text"
-                className="form-input block w-full mt-1 border rounded p-2"
+                className="form-input block w-full mt-1 border rounded p-2  dark:bg-gray-800 dark:border-gray-700  dark:text-gray-400"
                 name="FirstName"
                 value={employee.FirstName}
                 onChange={handleChange}
                 placeholder="Enter First Name"
               />
             </div>
-            <div className="mb-4">
-              <label htmlFor="LastName" className="block text-sm font-medium text-gray-700">
+            <div className="mb-4 ">
+              <label htmlFor="LastName" className="block text-sm font-medium text-gray-700  dark:text-gray-400">
                 Last Name:
               </label>
               <input
                 type="text"
-                className="form-input block w-full mt-1 border rounded p-2"
+                className="form-input block w-full mt-1 border rounded p-2  dark:bg-gray-800 dark:border-gray-700  dark:text-gray-400"
                 name="LastName"
                 value={employee.LastName}
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-4">
-              <label htmlFor="Age" className="block text-sm font-medium text-gray-700">
+            <div className="mb-4 ">
+              <label htmlFor="Age" className="block text-sm font-medium text-gray-700  dark:text-gray-400">
                 Age:
               </label>
               <input
                 type="number"
-                className="form-input block w-full mt-1 border rounded p-2"
+                className="form-input block w-full mt-1 border rounded p-2  dark:bg-gray-800 dark:border-gray-700  dark:text-gray-400"
                 name="Age"
                 value={employee.Age}
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-4">
-              <label htmlFor="DateOfJoining" className="block text-sm font-medium text-gray-700">
+            <div className="mb-4 ">
+              <label htmlFor="DateOfJoining" className="block text-sm font-medium text-gray-700  dark:text-gray-400">
                 Date of Joining:
               </label>
               <input
                 type="date"
-                className="form-input block w-full mt-1 border rounded p-2"
+                className="form-input block w-full mt-1 border rounded p-2  dark:bg-gray-800 dark:border-gray-700  dark:text-gray-400"
                 name="DateOfJoining"
                 value={moment(employee.DateOfJoining).format("YYYY-MM-DD")}
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-4">
-              <label htmlFor="Title" className="block text-sm font-medium text-gray-700">
+            <div className="mb-4 ">
+              <label htmlFor="Title" className="block text-sm font-medium text-gray-700  dark:text-gray-400">
                 Title:
               </label>
               <input
                 type="text"
-                className="form-input block w-full mt-1 border rounded p-2"
+                className="form-input block w-full mt-1 border rounded p-2  dark:bg-gray-800 dark:border-gray-700  dark:text-gray-400"
                 name="Title"
                 value={employee.Title}
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-4">
-              <label htmlFor="Department" className="block text-sm font-medium text-gray-700">
+            <div className="mb-4 ">
+              <label htmlFor="Department" className="block text-sm font-medium text-gray-700  dark:text-gray-400">
                 Department:
               </label>
               <input
                 type="text"
-                className="form-input block w-full mt-1 border rounded p-2"
+                className="form-input block w-full mt-1 border rounded p-2  dark:bg-gray-800 dark:border-gray-700  dark:text-gray-400"
                 name="Department"
                 value={employee.Department}
                 onChange={handleChange}
               />
             </div>
-            <div className="mb-4">
-              <label htmlFor="EmployeeType" className="block text-sm font-medium text-gray-700">
+            <div className="mb-4 ">
+              <label htmlFor="EmployeeType" className="block text-sm font-medium text-gray-700  dark:text-gray-400">
                 Employee Type:
               </label>
               <select
-                className="form-select block w-full mt-1 border rounded p-2"
+                className="form-select block w-full mt-1 border rounded p-2  dark:bg-gray-800 dark:border-gray-700  dark:text-gray-400 "
                 name="EmployeeType"
                 value={employee.EmployeeType}
                 onChange={handleChange}

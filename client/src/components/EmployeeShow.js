@@ -167,6 +167,37 @@ const EmployeeShow = () => {
     navigate("/update", { state: { item } });
   };
 
+const darkModeLogo = () =>{
+ if(dark){
+return ( <svg
+id="theme-toggle-dark-icon"
+className=" w-5 h-5"
+fill="currentColor"
+viewBox="0 0 20 20"
+xmlns="http://www.w3.org/2000/svg"
+>
+<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+</svg>)
+ }
+            
+   
+ return(
+    <svg
+      id="theme-toggle-light-icon"
+      className="  w-5 h-5"
+      fill="currentColor"
+      viewBox="0 0 20 20"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+      ></path>
+    </svg>)
+  
+}
+
   const toggleDarkMode = () => {
     if (localStorage.getItem("color-theme")) {
       
@@ -217,37 +248,12 @@ const EmployeeShow = () => {
           className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5"
           onClick={toggleDarkMode}
         >
-          {dark ? (
-            
-            <svg
-              id="theme-toggle-dark-icon"
-              className="hidden w-5 h-5"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-            </svg>
-          ) : (
-            <svg
-              id="theme-toggle-light-icon"
-              className="hidden w-5 h-5"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          )}
+          {darkModeLogo()}
         </button>
       </div>
       <div className="md:flex md:items-end">
-        <div className="md:w-1/2">
-          <div className="relative rounded-md shadow-sm">
+        <div className="md:w-1/2 ">
+          <div className="relative rounded-md shadow-sm  ">
             <input
               type="text"
               id="searchInput"
@@ -255,15 +261,15 @@ const EmployeeShow = () => {
               placeholder="Search employees by name or criteria"
               onChange={searchEmployees}
             />
-            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none dark:bg-gray-700 dark:text-gray-400">
+            <div className="absolute inset-y-0 right-0 p-3 flex items-center pointer-events-none dark:bg-gray-700 dark:text-gray-400">
               <BiSearch className="h-5 w-5 text-gray-400" />
             </div>
           </div>
         </div>
-        <div className="mt-4 md:mt-0 md:w-1/2 dark:bg-gray-700 dark:text-gray-400">
+        <div className="mt-4 md:w-1/2  dark:bg-gray-700 dark:text-gray-400">
           <select
-            id="filterDropdown"
-            className="form-select dark:bg-gray-700 dark:text-gray-400 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm sm:leading-5"
+           
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             onChange={filterEmployees}
           >
             <option value="">Filter by Employee Type</option>
@@ -273,7 +279,7 @@ const EmployeeShow = () => {
           </select>
         </div>
       </div>
-      <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className={`relative overflow-x-auto ${dark?'shadow-md':'shadow-xl'} sm:rounded-lg my-2 border-2`}>
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -330,13 +336,13 @@ const EmployeeShow = () => {
                 <td class="px-6 dark:bg-gray-800">{item.CurrentStatus}</td>
                 <td class="px-6 dark:bg-gray-800 text-right flex-col flex justify-center">
                   <button
-                    className="btn m-2 btn-warning "
+                    className="btn m-2 btn-warning rounded-xl "
                     onClick={() => updateEmployee(item)}
                   >
                     Update
                   </button>
                   <button
-                    className="btn m-2 btn-danger"
+                    className="btn m-2 btn-danger rounded-xl"
                     onClick={() => deleteEmployee(item)}
                   >
                     Delete
