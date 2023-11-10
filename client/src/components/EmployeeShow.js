@@ -279,7 +279,7 @@ xmlns="http://www.w3.org/2000/svg"
           </select>
         </div>
       </div>
-      <div className={`relative overflow-x-auto ${dark?'shadow-md':'shadow-xl'} sm:rounded-lg my-2 border-2`}>
+      <div className={`relative overflow-x-auto ${dark?'shadow-md':'shadow-xl'} sm:rounded-lg my-2 border-2 dark:border-0`}>
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
