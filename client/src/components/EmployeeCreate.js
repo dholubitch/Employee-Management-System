@@ -77,7 +77,7 @@ const EmployeeCreate = () => {
   };
 
   return (
-    <div className="container mx-auto h-screen flex justify-center items-center ">
+    <div className="container mx-auto h-full flex justify-center items-center ">
       <div className="w-96 bg-white p-8 shadow-md rounded-xl border-2  dark:bg-gray-800 dark:border-gray-700  dark:text-gray-400">
         <h2 className="text-2xl text-center mb-4">Create Employee Data</h2>
         <form onSubmit={handleSubmit}>
