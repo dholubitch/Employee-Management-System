@@ -49,6 +49,7 @@ const EmployeeShow = () => {
     })
       .then((res) => res.json())
       .then(function (res) {
+        console.log("🚀 ~ file: EmployeeShow.js:52 ~ res:", res.data.getEmployees)
         if (offset === 0) {
           setEmployees(res.data.getEmployees);
         } else {
@@ -88,7 +89,7 @@ const EmployeeShow = () => {
       name: name,
     };
 
-    fetch("https://ems-backend-zqv9.onrender.com", {
+    fetch("http://localhost:4000/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -127,7 +128,7 @@ const EmployeeShow = () => {
       type: type,
     };
 
-    fetch("https://ems-backend-zqv9.onrender.com", {
+    fetch("http://localhost:4000/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -152,7 +153,7 @@ const EmployeeShow = () => {
       }
     `;
 
-    fetch("https://ems-backend-zqv9.onrender.com", {
+    fetch("http://localhost:4000/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -232,7 +233,7 @@ const EmployeeShow = () => {
   };
 
   return (
-    <div className="container mx-auto mt-4 dark:bg-gray-700 dark:text-gray-400">
+    <div className="container mx-auto mt-4 dark:bg-gray-700 dark:text-gray-100">
       <h2 className="text-center">Employee's Portal</h2>
       <div className="flex justify-between items-center my-4">
         
@@ -321,18 +322,18 @@ const EmployeeShow = () => {
                   scope="row"
                   class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:bg-gray-800 dark:text-white"
                 >
-                  {item.FirstName}
+                  {item?.FirstName}
                 </th>
 
-                <td class="px-6 dark:bg-gray-800">{item.LastName}</td>
-                <td class="px-6 dark:bg-gray-800">{item.Age}</td>
+                <td class="px-6 dark:bg-gray-800">{item?.LastName}</td>
+                <td class="px-6 dark:bg-gray-800">{item?.Age}</td>
                 <td class="px-6 dark:bg-gray-800">
-                  {dateConversion(item.DateOfJoining)}
+                  {dateConversion(item?.DateOfJoining)}
                 </td>
-                <td class="px-6 dark:bg-gray-800">{item.Title}</td>
-                <td class="px-6 dark:bg-gray-800">{item.Department}</td>
-                <td class="px-6 dark:bg-gray-800">{item.EmployeeType}</td>
-                <td class="px-6 dark:bg-gray-800">{item.CurrentStatus}</td>
+                <td class="px-6 dark:bg-gray-800">{item?.Title}</td>
+                <td class="px-6 dark:bg-gray-800">{item?.Department}</td>
+                <td class="px-6 dark:bg-gray-800">{item?.EmployeeType}</td>
+                <td class="px-6 dark:bg-gray-800">{item?.CurrentStatus}</td>
                 <td class="px-6 dark:bg-gray-800 text-right flex-col flex justify-center">
                   <button
                     className="btn m-2 btn-warning rounded-xl "
