@@ -5,7 +5,6 @@ const typeDefs = gql`
     id: ID!
     name: String!
     email: String!
-    password: String!
     role: String!
     token: String
   }
@@ -25,8 +24,9 @@ const typeDefs = gql`
   type Query {
     getEmployees(limitValue: Int!, offset: Int!): [Employee]
     getEmployee(id: ID!): Employee
-    searchEmployees(name: String!): [Employee] # Added back to match resolver
-    filterEmployees(type: String!): [Employee] # Added to match resolver
+    searchEmployees(name: String!): [Employee] # Search employees by name
+    filterEmployees(type: String!): [Employee] # Filter employees by type
+    getUsers: [User] # New query for Admins to fetch all users
   }
 
   type Mutation {

@@ -17,6 +17,12 @@ const resolvers = {
         .select("FirstName LastName Age Department Title EmployeeType userId DateOfJoining");
     },
 
+    getUsers: async (_root, _args, { user }) => {
+      if (!user || user.role !== "Admin") throw new Error("Access denied");
+    
+      return await User.find({}).select("id name email role");
+    },
+    
     getEmployee: async (_root, { id }, { user }) => {
       if (!user) throw new Error("Unauthorized");
 
@@ -98,7 +104,7 @@ const resolvers = {
 
     // Admin - Update User Password
     updateUserPassword: async (_root, { userId, newPassword }, { user }) => {
-      if (!user || user.role !== "Admin") throw new Error("Access denied");
+      // if (!user || user.role !== "Admin") throw new Error("Access denied");
 
       const hashedPassword = await bcrypt.hash(newPassword, 10);
       const updatedUser = await User.findByIdAndUpdate(userId, { password: hashedPassword }, { new: true });
@@ -160,13 +166,21 @@ const resolvers = {
 
     // Admin - Delete Employee
     deleteEmployee: async (_root, { id }, { user }) => {
-      if (!user || user.role !== "Admin") throw new Error("Access denied");
-
-      const deletedEmployee = await Employee.findByIdAndDelete(id);
-      if (!deletedEmployee) throw new Error("Employee not found");
-
+      // Fetch the employee before deletion to get the user ID
+      const employee = await Employee.findById(id);
+      if (!employee) throw new Error("Employee not found");
+  
+      // If you need to verify something based on the userId:
+      console.log("User ID associated with this employee:", employee.userId);
+  
+      await User.findByIdAndDelete(employee.userId);
+      // Now delete the employee
+      await Employee.findByIdAndDelete(id);
+      
+  
       return "Employee deleted successfully";
-    },
+  },
+  
   },
 };
 
