@@ -17,16 +17,15 @@ function App() {
     <AuthProvider>
       <Routes>
         <Route path="/" element={<EmployeeShow />} />
-        <Route path="/employees" element={<EmployeeShow />} />
-        <Route path="/create" element={<EmployeeCreate />} />
-        <Route path="/update" element={<EmployeeUpdate />} />
+        
+       
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         
         {/* Add Role-Based Routes */}
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/hr" element={<HRDashboard />} />
-        <Route path="/employee" element={<EmployeeProfile />} />
+        <Route path="/employee" element={<EmployeeShow />} />
       </Routes>
     </AuthProvider>
   );

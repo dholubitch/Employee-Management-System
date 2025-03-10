@@ -221,11 +221,12 @@ const HRDashboard = () => {
       Age: parseInt(newEmployee.Age),
       Title: newEmployee.Title,
       Department: newEmployee.Department,
-      EmployeeType: newEmployee.EmployeeType,
+      EmployeeType: newEmployee.EmployeeType || "Full-Time",
       DateOfJoining: newEmployee.DateOfJoining,
       email: newEmployee.email,
       password: newEmployee.password,
     };
+    console.log("🚀 ~ handleCreateEmployee ~ variables:", variables)
 
     fetch("http://localhost:4000/", {
       method: "POST",
@@ -358,8 +359,10 @@ const HRDashboard = () => {
         >
           <option value="Full-Time">Full-Time</option>
           <option value="Part-Time">Part-Time</option>
-          <option value="Intern">Intern</option>
+          <option value="Contractor">Contractor</option>
         </select>
+
+        
         <input
           type="date"
           value={newEmployee.DateOfJoining}

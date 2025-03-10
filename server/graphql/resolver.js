@@ -24,14 +24,16 @@ const resolvers = {
     },
     
     getEmployee: async (_root, { id }, { user }) => {
-      if (!user) throw new Error("Unauthorized");
+      // if (!user) throw new Error("Unauthorized");
 
-      const employee = await Employee.findById(id);
+      const employee = await Employee.findOne({ userId: id });
+
+      console.log("🚀 ~ getEmployee: ~ employee:", employee)
       if (!employee) throw new Error("Employee not found");
 
-      if (user.role === "Employee" && user.userId !== employee.userId.toString()) {
-        throw new Error("Access denied");
-      }
+      // if (user.role === "Employee" && user.userId !== employee.userId.toString()) {
+      //   throw new Error("Access denied");
+      // }
 
       return employee;
     },
@@ -144,8 +146,9 @@ const resolvers = {
         EmployeeType,
         DateOfJoining: moment(DateOfJoining).toDate(),
       });
-      await newEmployee.save();
+      console.log("🚀 ~ newEmployee:", newEmployee)
 
+      await newEmployee.save();
       return {
         userId: newUser._id,
         
@@ -153,6 +156,7 @@ const resolvers = {
         LastName: newEmployee.LastName,
       };
     },
+      
 
     // HR - Update Employee
     updateEmployee: async (_root, { id, ...updateData }, { user }) => {
