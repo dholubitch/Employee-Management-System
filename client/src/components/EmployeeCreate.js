@@ -17,30 +17,29 @@ const EmployeeCreate = () => {
   const handleChange = (e) => {
     let { name, value } = e.target;
 
-    if (name === "age") {
-      let valuek = parseInt(value);
-      setEmployee({
-        ...employee,
-        [name]: valuek,
-      });
-    } else {
-      setEmployee({
-        ...employee,
-        [name]: value,
-      });
-    }
+    setEmployee((prev) => ({
+      ...prev,
+      [name]: name === "age" ? parseInt(value) : value,
+    }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    let query = `mutation addEmployee(
+    const token = localStorage.getItem("token");
+    console.log("🚀 ~ handleSubmit ~ token:", token);
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+
+    const query = `mutation addEmployee(
       $firstName: String!,
       $lastName: String!,
       $title: String!,
       $age: Int!,
       $department: String!,
       $employeeType: String!,
-      $dateOfJoining: String!,
+      $dateOfJoining: String!
     ) {
       createEmployee(
         FirstName: $firstName,
@@ -49,7 +48,7 @@ const EmployeeCreate = () => {
         Age: $age,
         Department: $department,
         EmployeeType: $employeeType,
-        DateOfJoining: $dateOfJoining,
+        DateOfJoining: $dateOfJoining
       ) {
         FirstName
         LastName
@@ -61,19 +60,21 @@ const EmployeeCreate = () => {
       }
     }`;
 
-    fetch("https://ems-backend-zqv9.onrender.com", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query: query,
-        variables: employee,
-      }),
-    })
-      .then((res) => res.json())
-      .then(function (res) {
-        console.log(res);
-        navigate("/");
+    try {
+      const response = await fetch("http://localhost:4000/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({ query, variables: employee }),
       });
+      const result = await response.json();
+      console.log(result);
+      navigate("/");
+    } catch (error) {
+      console.error("Error creating employee:", error);
+    }
   };
 
   return (

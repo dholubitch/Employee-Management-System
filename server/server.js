@@ -1,53 +1,30 @@
 const { ApolloServer } = require("apollo-server");
-
 const mongoose = require("mongoose");
 require("dotenv").config();
 
 const typeDefs = require("./graphql/typedef.js");
 const resolvers = require("./graphql/resolver.js");
+const authMiddleware = require("./middleware/authMiddleware.js");
 
-//     _id: ID!
-//     FirstName: String!
-//     LastName: String!
-//     Age: Int!
-//     DateOfJoining: String!
-//     Title: String!
-//     Department: String!
-//     EmployeeType: String!
-//   }
+// Connect to MongoDB
+mongoose
+  .connect(process.env.CONNECTION_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("✅ Connected to MongoDB"))
+  .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-//   type Query {
-//     getEmployees: [Employee]!
-//     getEmployee(id: ID!): Employee
-//   }
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: async ({ req }) => {
+    const user = await authMiddleware(req);
+    return { user };
+  },
+});
 
-//   type Mutation {
-//     createEmployee(
-//       FirstName: String!
-//       LastName: String!
-//       Age: Int!
-//       DateOfJoining: String!
-//       Title: String!
-//       Department: String!
-//       EmployeeType: String!
-//     ): Employee
-
-//     updateEmployee(
-//         id: ID!
-//         FirstName: String
-//         LastName: String
-//         Age: Int
-//         DateOfJoining: String
-//         Title: String
-//         Department: String
-//         EmployeeType: String
-//       ): Employee
-//   }
-// `;
-mongoose.connect(process.env.CONNECTION_STRING);
-
-const server = new ApolloServer({ typeDefs, resolvers });
-
-server.listen({ port: process.env.PORT || 4000 }).then(({ url }) => {
+const PORT = process.env.PORT || 4000;
+server.listen({ port: PORT }).then(({ url }) => {
   console.log(`🚀 Server ready at ${url}`);
 });

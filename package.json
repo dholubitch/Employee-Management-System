@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon node.js",
+    "start": "nodemon server.js",
     "compile": "babel JSX --presets @babel/react --out-dir public",
     "watch": "babel JSX --presets @babel/react --out-dir public --watch --verbose"
   },
